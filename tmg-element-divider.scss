@@ -1,0 +1,38 @@
+// @author Anthony Michel (thonyMg)
+// @description
+// Compass extension for create a simple divider
+// **Note:** You can use list for argument
+//
+
+// **Ex:
+// $multi-left: left, "li", 6px, groove, yellow;
+// @include tmg-element-divider($multi-left...);
+//
+
+// @arg {string} $direction - left, right, top === bottom
+// @arg {string} $selector - li, span, .class, #id
+// @arg {number} $width - border-width
+// @arg {string} $style - border-style
+// @arg {RGBA} $color - border-color
+
+// Require :
+// Sass (v3.4)
+// Compass (v1.0.3)
+// ----
+
+@import "compass";
+
+@mixin tmg-element-divider($direction: left, $selector: "li", $width: 1px,  $style: solid, $color: #000  ){
+	#{$selector}{
+		border-#{$direction}: $width $style $color;
+		border-#{opposite-position($direction)}: $width $style $color;
+
+ &:first-child #{if(support-legacy-browser("ie", "6", $threshold: $css-sel2-support-threshold), ', &.first', '')} {
+		border-#{$direction}: 0 none ;
+		}
+
+	&:last-child #{if(support-legacy-browser("ie", "6", $threshold: $css-sel2-support-threshold), ', &.last', '')} {
+			border-#{opposite-position($direction)}: 0 none;
+		}
+	}
+}
